@@ -6,7 +6,6 @@ import { Button } from 'antd';
 
 export default function () {
 
-  const pageName = 'yee';
 
   return (
     <div className={styles.normal}>

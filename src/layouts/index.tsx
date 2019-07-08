@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Props } from 'react';
 import Link from 'umi/link';
+import { connect } from "dva";
 import styles from './index.css';
 import { Layout, Menu } from 'antd';
 
-const BasicLayout: React.FC = props => {
+const BasicLayout = (props: { children: React.ReactNode; location: any; }) => {
 
   const { Sider, Header, Content, Footer } = Layout;
   const siderItems = [
@@ -18,6 +19,7 @@ const BasicLayout: React.FC = props => {
           <Menu
             mode="inline"
             defaultSelectedKeys={['/']}
+            selectedKeys={[location.pathname]}
             // defaultOpenKeys={['sub1']}
             style={{ height: '100%', borderRight: 0 }}
           >
@@ -38,3 +40,9 @@ const BasicLayout: React.FC = props => {
 };
 
 export default BasicLayout;
+
+// export default connect((state: any) => {
+//   return {
+//     globalData: state.global
+//   };
+// })(BasicLayout);
