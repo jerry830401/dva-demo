@@ -1,15 +1,14 @@
-import React, { Props } from 'react';
 import Link from 'umi/link';
-import { connect } from "dva";
 import styles from './index.css';
 import { Layout, Menu } from 'antd';
 
-const BasicLayout = (props: { children: React.ReactNode; location: any; }) => {
+
+function BasicLayout(props) {
 
   const { Sider, Header, Content, Footer } = Layout;
   const siderItems = [
     { name: 'Home', path: '/' },
-    { name: 'Users', path: '/users' }
+    { name: 'Users', path: '/users/users' }
   ];
 
   return (
@@ -19,8 +18,7 @@ const BasicLayout = (props: { children: React.ReactNode; location: any; }) => {
           <Menu
             mode="inline"
             defaultSelectedKeys={['/']}
-            selectedKeys={[location.pathname]}
-            // defaultOpenKeys={['sub1']}
+            selectedKeys={[props.location.pathname]}
             style={{ height: '100%', borderRight: 0 }}
           >
             {siderItems.map((item) => <Menu.Item key={item.path}><Link to={item.path}>{item.name}</Link></Menu.Item>)}
@@ -37,12 +35,6 @@ const BasicLayout = (props: { children: React.ReactNode; location: any; }) => {
       </Layout>
     </div>
   );
-};
+}
 
 export default BasicLayout;
-
-// export default connect((state: any) => {
-//   return {
-//     globalData: state.global
-//   };
-// })(BasicLayout);

@@ -1,7 +1,6 @@
-import { IConfig } from 'umi-types';
 
 // ref: https://umijs.org/config/
-const config: IConfig =  {
+export default {
   treeShaking: true,
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
@@ -9,7 +8,7 @@ const config: IConfig =  {
       antd: true,
       dva: true,
       dynamicImport: false,
-      title: 'demo',
+      title: 'dva-umi',
       dll: false,
       
       routes: {
@@ -24,5 +23,3 @@ const config: IConfig =  {
     }],
   ],
 }
-
-export default config;
