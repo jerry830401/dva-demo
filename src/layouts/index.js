@@ -83,10 +83,8 @@ function BasicLayout({ children, location, global, dispatch }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  console.log(state)
+const mapStateToProps = (state) => {  
   const global = state.global;
-  console.log(global)
   return {
     global
   };

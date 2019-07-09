@@ -2,11 +2,19 @@
 export default {
   namespace: 'global',
   state: {
-    siderOpen: true
+    siderOpen: true,
+    logState: true,
   },
   reducers: {
     save(state, { payload }) {
       return { ...state, ...payload };
+    },
+    check(state) {
+      console.log('logout')
+      return {
+        ...state,
+        logState: state.logState ? false : true
+      };
     },
   },
   effects: {
@@ -37,13 +45,14 @@ export default {
     //   yield put({ type: 'fetch', payload: { page } });
     // },
   },
-  // subscriptions: {
-  //   setup({ dispatch, history }) {
-  //     return history.listen(({ pathname, query }) => {
-  //       if (pathname === '/users') {
-  //         dispatch({ type: 'fetch', payload: query });
-  //       }
-  //     });
-  //   },
-  // },
+  subscriptions: {
+    setup({ dispatch, history }) {
+      return history.listen(({ pathname, query }) => {
+        // if (pathname === '/users') {
+        //   dispatch({ type: 'fetch', payload: query });
+        // }
+        dispatch({ type: 'check' });
+      });
+    },
+  },
 };
