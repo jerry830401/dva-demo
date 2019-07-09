@@ -8,7 +8,7 @@ export default {
       antd: true,
       dva: true,
       dynamicImport: false,
-      title: 'dva-umi',
+      title: 'dva-umi-demo',
       dll: false,
       
       routes: {

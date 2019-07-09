@@ -5,10 +5,6 @@ import { Table } from 'antd';
 
 const Users = ({ location, dispatch, users }) => {
 
-    const saveText = () => {
-        dispatch({ type: 'users/save', payload: { text: '123' } })
-    }
-
     const columns = [
         {
           title: '姓名',

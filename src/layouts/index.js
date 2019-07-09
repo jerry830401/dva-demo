@@ -1,9 +1,10 @@
 import Link from 'umi/link';
 import styles from './index.css';
-import { Layout, Menu } from 'antd';
+import { connect } from "dva";
+import { Layout, Menu, Button } from 'antd';
 
 
-function BasicLayout(props) {
+function BasicLayout({ children, location, global, dispatch }) {
 
   const { Sider, Header, Content, Footer } = Layout;
   const siderItems = [
@@ -11,27 +12,48 @@ function BasicLayout(props) {
     { name: 'Users', path: '/users' }
   ];
 
+
+  const siderControl = () => {
+    dispatch({ type: 'global/save', payload: { siderOpen: !global.siderOpen } })
+  }
+
+
   return (
     <div className={styles.normal}>
       <Layout className={styles.layout}>
-        <Sider 
+        <Sider
           className={styles.sider}
-          breakpoint='xs'
+          trigger={null}
           collapsedWidth={0}
+          collapsed={global.siderOpen}
         >
           <Menu
             mode="inline"
-            defaultSelectedKeys={['/']}
-            selectedKeys={[props.location.pathname]}
+            selectedKeys={[location.pathname]}
             style={{ height: '100%', borderRight: 0 }}
           >
             {siderItems.map((item) => <Menu.Item key={item.path}><Link to={item.path}>{item.name}</Link></Menu.Item>)}
           </Menu>
         </Sider>
         <Layout>
-          <Header className={styles.title}><h1 >reactJs+dva+umi+antd</h1></Header>
+          <Header className={styles.title}>
+            <Button
+              icon={global.siderOpen ? 'menu-unfold': 'menu-fold'} 
+              style={{
+                float: 'left',
+                margin: '1rem 0 1rem 0',
+                display: document.body.clientWidth > 480 ? 'none' : 'block',
+                backgroundColor:'darkslateblue',
+                color:'white',
+                border:0,
+                fontSize:'1.5rem'
+              }}
+              onClick={() => siderControl()}
+            />
+            <span>Demo</span>
+          </Header>
           <Content>
-            {props.children}
+            {children}
             {/* <Footer className={styles.footer}>Footer</Footer> */}
           </Content>
 
@@ -41,4 +63,13 @@ function BasicLayout(props) {
   );
 }
 
-export default BasicLayout;
+const mapStateToProps = (state) => {
+  console.log(state)
+  const global = state.global;
+  console.log(global)
+  return {
+    global
+  };
+};
+
+export default connect(mapStateToProps)(BasicLayout);
