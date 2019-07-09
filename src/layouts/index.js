@@ -8,7 +8,7 @@ function BasicLayout(props) {
   const { Sider, Header, Content, Footer } = Layout;
   const siderItems = [
     { name: 'Home', path: '/' },
-    { name: 'Users', path: '/users/users' }
+    { name: 'Users', path: '/users' }
   ];
 
   return (
