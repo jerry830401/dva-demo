@@ -14,7 +14,11 @@ function BasicLayout(props) {
   return (
     <div className={styles.normal}>
       <Layout className={styles.layout}>
-        <Sider className={styles.sider}>
+        <Sider 
+          className={styles.sider}
+          breakpoint='xs'
+          collapsedWidth={0}
+        >
           <Menu
             mode="inline"
             defaultSelectedKeys={['/']}
@@ -25,10 +29,10 @@ function BasicLayout(props) {
           </Menu>
         </Sider>
         <Layout>
-          <Header className={styles.title}><h1 >Yay! Welcome to umi yee!</h1></Header>
+          <Header className={styles.title}><h1 >reactJs+dva+umi+antd</h1></Header>
           <Content>
             {props.children}
-            <Footer className={styles.footer}>Footer</Footer>
+            {/* <Footer className={styles.footer}>Footer</Footer> */}
           </Content>
 
         </Layout>

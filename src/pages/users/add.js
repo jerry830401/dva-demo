@@ -7,33 +7,12 @@ const Users = ({ location, dispatch, users }) => {
 
     const saveText = () => {
         dispatch({ type: 'users/save', payload: { text: '123' } })
-    }
-
-    const columns = [
-        {
-          title: '姓名',
-          dataIndex: 'name',
-          key: 'name',
-        },
-        {
-          title: '年齡',
-          dataIndex: 'age',
-          key: 'age',
-        },
-        {
-          title: '住址',
-          dataIndex: 'address',
-          key: 'address',
-        },
-      ];
+    }    
 
     console.log(users)
     return (
         <div className={styles.normal}>
-            <Table
-                dataSource={users.list}
-                columns={columns}
-            />
+           
         </div>
     );
 }

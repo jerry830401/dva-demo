@@ -2,7 +2,20 @@
 export default {
   namespace: 'users',
   state: {
-    list: [],
+    list: [
+      {
+        key: '1',
+        name: '胡彦斌',
+        age: 32,
+        address: '高雄市XXX區',
+      },
+      {
+        key: '2',
+        name: '胡彦祖',
+        age: 42,
+        address: '台南市XXX區',
+      },
+    ],
     total: null,
     page: null,
     text:'Hellow'
