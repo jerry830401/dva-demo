@@ -2,7 +2,7 @@
 export default {
   namespace: 'global',
   state: {
-    siderOpen:true
+    siderOpen: true
   },
   reducers: {
     save(state, { payload }) {

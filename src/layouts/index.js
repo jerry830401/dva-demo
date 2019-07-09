@@ -1,22 +1,26 @@
 import Link from 'umi/link';
 import styles from './index.css';
 import { connect } from "dva";
-import { Layout, Menu, Button } from 'antd';
+import { Layout, Menu, Button, Dropdown } from 'antd';
 
 
 function BasicLayout({ children, location, global, dispatch }) {
 
-  const { Sider, Header, Content, Footer } = Layout;
+  const { Sider, Header, Content } = Layout;
   const siderItems = [
     { name: 'Home', path: '/' },
     { name: 'Users', path: '/users' }
   ];
-
-
+  const userItem = (
+    <Menu>
+      <Menu.Item key="0">
+        <span>logout</span>
+      </Menu.Item>
+    </Menu>
+  )
   const siderControl = () => {
     dispatch({ type: 'global/save', payload: { siderOpen: !global.siderOpen } })
   }
-
 
   return (
     <div className={styles.normal}>
@@ -25,7 +29,7 @@ function BasicLayout({ children, location, global, dispatch }) {
           className={styles.sider}
           trigger={null}
           collapsedWidth={0}
-          collapsed={global.siderOpen}
+          collapsed={document.body.clientWidth > 480 ?  false: global.siderOpen}
         >
           <Menu
             mode="inline"
@@ -38,19 +42,35 @@ function BasicLayout({ children, location, global, dispatch }) {
         <Layout>
           <Header className={styles.title}>
             <Button
-              icon={global.siderOpen ? 'menu-unfold': 'menu-fold'} 
+              icon={global.siderOpen ? 'menu-unfold' : 'menu-fold'}
               style={{
                 float: 'left',
                 margin: '1rem 0 1rem 0',
                 display: document.body.clientWidth > 480 ? 'none' : 'block',
-                backgroundColor:'darkslateblue',
-                color:'white',
-                border:0,
-                fontSize:'1.5rem'
+                backgroundColor: 'darkslateblue',
+                color: 'white',
+                border: 0,
+                fontSize: '1.5rem'
               }}
               onClick={() => siderControl()}
             />
             <span>Demo</span>
+            <Dropdown
+              overlay={userItem}
+              trigger={['click']}>
+              <Button
+                icon='user'
+                style={{
+                  float: 'right',
+                  margin: '1rem 0 1rem 0',
+                  backgroundColor: 'darkslateblue',
+                  color: 'white',
+                  border: 0,
+                  fontSize: '1.5rem'
+                }}
+              ></Button>
+            </Dropdown>
+
           </Header>
           <Content>
             {children}

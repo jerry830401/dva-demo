@@ -1,14 +1,10 @@
 import React from 'react';
 import { connect } from "dva";
 import styles from '../index.css';
-import { Table } from 'antd';
+import {  } from 'antd';
 
 const Users = ({ location, dispatch, users }) => {
-
-    const saveText = () => {
-        dispatch({ type: 'users/save', payload: { text: '123' } })
-    }    
-
+    
     console.log(users)
     return (
         <div className={styles.normal}>
