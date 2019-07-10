@@ -5,24 +5,13 @@ export default {
   namespace: 'global',
   state: {
     siderOpen: true,
-    logState: Cookies.get('logState') === 'true' ? Cookies.get('logState') : 'false',
+    checkState: true,
+    authState: Cookies.get('authState') === 'true' ? Cookies.get('authState') : 'false'
+
   },
   reducers: {
     save(state, { payload }) {
       return { ...state, ...payload };
-    },
-    check(state) {
-      if (state.logState === 'true') {
-        console.log('ok')
-        router.push('/')
-      }
-      else {
-        console.log('no')
-        router.push('/login')
-      }
-      return {
-        ...state,
-      };
     },
   },
   effects: {
@@ -37,42 +26,35 @@ export default {
     //     },
     //   });
     // },
-    // *remove({ payload: id }, { call, put, select }) {
-    //   yield call(usersService.remove, id);
-    //   const page = yield select(state => state.users.page);
-    //   yield put({ type: 'fetch', payload: { page } });
-    // },
-    *check({ payload }, { call, put, select }) {
-      const { logState } = yield select(state => state.global);
-      console.log(payload)
-      // if (logState === 'false' && payload === 'other') {
-      //   console.log('no')
-      //   router.push('/login')
-      // }
+    *checkReset({ }, { call, put, select }) {
+      yield put({ type: 'save', payload: { checkState: false } });
+      yield put({ type: 'check' });
+    },
+    *check({ }, { call, put, select }) {
+      const { checkState, authState } = yield select(state => state.global);
+      console.log(checkState)
+      if (checkState === false && authState === 'false') {
+        throw "get out";
+      }
+      yield put({ type: 'save', payload: { checkState: true } });
     },
     *login({ }, { call, put, select }) {
-      Cookies.set('logState', 'true')
-      router.replace('/')
-      yield put({ type: 'save', payload: { logState: 'true' } });
+      Cookies.set('authState', 'true')
+      router.push('/')
+      yield put({ type: 'save', payload: { authState: 'true' } });
     },
     *logout({ }, { call, put, select }) {
-      Cookies.set('logState', 'false')
-      router.replace('/login')
-      yield put({ type: 'save', payload: { logState: 'false' } });
+      Cookies.set('authState', 'false')
+      router.push('/login')
+      yield put({ type: 'save', payload: { authState: 'false' } });
     },
   },
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
-        // if (pathname === '/users') {
-        //   dispatch({ type: 'fetch', payload: query });
-        // }
-        // if (pathname === '/login') {
-        //   dispatch({ type: 'check', payload: 'login' });
-        // }
-        // else {
-        //   dispatch({ type: 'check', payload: 'other' });
-        // }
+        if (pathname !== '/login') {
+          dispatch({ type: 'checkReset' });
+        }
       });
     },
   },
