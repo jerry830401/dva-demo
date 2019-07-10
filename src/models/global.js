@@ -1,21 +1,38 @@
+import router from 'umi/router';
+import Cookies from 'js-cookie';
 
 export default {
   namespace: 'global',
   state: {
     siderOpen: true,
-    logState: true,
+    logState: Cookies.get('logState') === 'true' ? Cookies.get('logState') : 'false',
   },
   reducers: {
     save(state, { payload }) {
       return { ...state, ...payload };
     },
     check(state) {
-      console.log('logout')
+      if (state.logState === 'true') {
+        console.log('ok')
+        router.push('/')
+      }
+      else {
+        console.log('no')
+        router.push('/login')
+      }
       return {
         ...state,
-        logState: state.logState ? false : true
       };
     },
+    login(state) {
+      console.log('yee', Cookies.get('logState'))      
+      Cookies.set('logState', 'true')
+      
+      return {
+        ...state,
+        logState: true
+      }
+    }
   },
   effects: {
     // *fetch({ payload: { page = 1 } }, { call, put }) {
