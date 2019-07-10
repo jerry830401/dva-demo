@@ -26,24 +26,24 @@ export default {
     //     },
     //   });
     // },
-    *checkReset({ }, { call, put, select }) {
+    *checkReset({ payload }, { call, put, select }) {
       yield put({ type: 'save', payload: { checkState: false } });
       yield put({ type: 'check' });
     },
-    *check({ }, { call, put, select }) {
+    *check({ payload }, { call, put, select }) {
       const { checkState, authState } = yield select(state => state.global);
       console.log(checkState)
       if (checkState === false && authState === 'false') {
-        throw "get out";
+        throw new Error("get out");
       }
       yield put({ type: 'save', payload: { checkState: true } });
     },
-    *login({ }, { call, put, select }) {
+    *login({ payload }, { call, put, select }) {
       Cookies.set('authState', 'true')
       router.push('/')
       yield put({ type: 'save', payload: { authState: 'true' } });
     },
-    *logout({ }, { call, put, select }) {
+    *logout({ payload }, { call, put, select }) {
       Cookies.set('authState', 'false')
       router.push('/login')
       yield put({ type: 'save', payload: { authState: 'false' } });

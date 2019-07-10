@@ -40,7 +40,11 @@ function BasicLayout({ children, location, global, dispatch }) {
               selectedKeys={[location.pathname]}
               style={{ height: '100%', borderRight: 0 }}
             >
-              {siderItems.map((item) => <Menu.Item key={item.path}><Link to={item.path}>{item.name}</Link></Menu.Item>)}
+              {siderItems.map((item) =>
+                <Menu.Item key={item.path} onClick={()=> document.body.clientWidth > 480 ? null : siderControl() }>
+                  <Link to={item.path}>{item.name}</Link>
+                </Menu.Item>
+              )}
             </Menu>
           </Sider>
           <Layout>
@@ -71,7 +75,7 @@ function BasicLayout({ children, location, global, dispatch }) {
                     color: 'white',
                     border: 0,
                     fontSize: '1.5rem'
-                  }}                  
+                  }}
                 ></Button>
               </Dropdown>
 
