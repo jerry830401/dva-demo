@@ -24,15 +24,6 @@ export default {
         ...state,
       };
     },
-    login(state) {
-      console.log('yee', Cookies.get('logState'))      
-      Cookies.set('logState', 'true')
-      
-      return {
-        ...state,
-        logState: true
-      }
-    }
   },
   effects: {
     // *fetch({ payload: { page = 1 } }, { call, put }) {
@@ -51,16 +42,24 @@ export default {
     //   const page = yield select(state => state.users.page);
     //   yield put({ type: 'fetch', payload: { page } });
     // },
-    // *patch({ payload: { id, values } }, { call, put, select }) {
-    //   yield call(usersService.patch, id, values);
-    //   const page = yield select(state => state.users.page);
-    //   yield put({ type: 'fetch', payload: { page } });
-    // },
-    // *create({ payload: values }, { call, put, select }) {
-    //   yield call(usersService.create, values);
-    //   const page = yield select(state => state.users.page);
-    //   yield put({ type: 'fetch', payload: { page } });
-    // },
+    *check({ payload }, { call, put, select }) {
+      const { logState } = yield select(state => state.global);
+      console.log(payload)
+      // if (logState === 'false' && payload === 'other') {
+      //   console.log('no')
+      //   router.push('/login')
+      // }
+    },
+    *login({ }, { call, put, select }) {
+      Cookies.set('logState', 'true')
+      router.replace('/')
+      yield put({ type: 'save', payload: { logState: 'true' } });
+    },
+    *logout({ }, { call, put, select }) {
+      Cookies.set('logState', 'false')
+      router.replace('/login')
+      yield put({ type: 'save', payload: { logState: 'false' } });
+    },
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -68,7 +67,12 @@ export default {
         // if (pathname === '/users') {
         //   dispatch({ type: 'fetch', payload: query });
         // }
-        dispatch({ type: 'check' });
+        // if (pathname === '/login') {
+        //   dispatch({ type: 'check', payload: 'login' });
+        // }
+        // else {
+        //   dispatch({ type: 'check', payload: 'other' });
+        // }
       });
     },
   },

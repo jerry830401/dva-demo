@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from "dva";
-import styles from '../index.css';
-import { Card, Form, Input, Checkbox, Icon, Button } from 'antd';
+import { Card, Form, Input, Icon, Button } from 'antd';
 
 const Login = ({ location, dispatch, global, form }) => {
 
