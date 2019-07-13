@@ -28,6 +28,7 @@ export default {
         address: '台南市XXX區',
       },
     ],
+    temp:[],
   },
   reducers: {
     save(state, { payload }) {
@@ -68,6 +69,22 @@ export default {
       yield put({ type: 'save', payload: { list: [...list, payload] } });
       router.push('/users')
       openNotification('success', '新增成功', '')
+    },
+    *listEdit({ payload }, { call, put, select }) {
+      const { list } = yield select(state => state.users);
+      console.log(payload)
+      list[payload['index']].age = payload['age']
+      list[payload['index']].address = payload['address']
+      yield put({ type: 'save', payload: { list: list } });
+      router.push('/users')
+      openNotification('success', '修改成功', '')
+    },
+    *listRemove({ payload }, { call, put, select }) {
+      const { list } = yield select(state => state.users);
+      console.log(payload)
+      yield put({ type: 'save', payload: { list: [...list, payload] } });
+      router.push('/users')
+      openNotification('success', '移除成功', '')
     },
   },
   subscriptions: {

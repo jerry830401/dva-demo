@@ -22,7 +22,23 @@ const Users = ({ location, dispatch, users }) => {
       dataIndex: 'address',
       key: 'address',
     },
+    {
+      title: '編輯',
+      dataIndex: 'edit',
+      key: 'edit',
+      render: (t, r, i) =>
+        <Button 
+          icon='edit'
+          onClick={()=> gotoEdit(r, i)}
+        />      
+    },
   ];
+
+  const gotoEdit = (r, i) => {
+    console.log(r, i)
+    dispatch({type:'users/save', payload:{ temp: [r, i] } })
+    router.push('users/edit')
+  }
 
   console.log(users)
   return (
