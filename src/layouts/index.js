@@ -14,7 +14,7 @@ function BasicLayout({ children, location, global, dispatch }) {
   const userItem = (
     <Menu>
       <Menu.Item key="0">
-        <span onClick={() => dispatch({ type: 'global/logout' })}>logout</span>
+        <Button onClick={() => dispatch({ type: 'global/logout' })}>logout</Button>
       </Menu.Item>
     </Menu>
   )

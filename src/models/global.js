@@ -1,5 +1,16 @@
 import router from 'umi/router';
 import Cookies from 'js-cookie';
+import { notification } from 'antd';
+
+const openNotification = (type, title, description) => {
+  notification[type]({
+      message: title,
+      description: description,
+      onClick: () => {
+          console.log('Notification Clicked!');
+      },
+  });
+};
 
 export default {
   namespace: 'global',
@@ -42,11 +53,13 @@ export default {
       Cookies.set('authState', 'true')
       router.push('/')
       yield put({ type: 'save', payload: { authState: 'true' } });
+      openNotification('success', '登入成功', '')
     },
     *logout({ payload }, { call, put, select }) {
       Cookies.set('authState', 'false')
       router.push('/login')
       yield put({ type: 'save', payload: { authState: 'false' } });
+      openNotification('success', '登出成功', '')
     },
   },
   subscriptions: {

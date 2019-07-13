@@ -16,7 +16,6 @@ const Login = ({ location, dispatch, global, form }) => {
                 console.log('Received values of form: ', values);
                 if (values.username === 'user' && values.password === '123456') {
                     dispatch({ type: 'global/login' })
-                    openNotification('success', '登入成功', '')
                 }
                 else {
                     openNotification('error', '登入失敗', '請確認使用者名稱或密碼是否錯誤')
