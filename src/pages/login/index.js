@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "dva";
-import { Card, Form, Input, Icon, Button } from 'antd';
+import { Card, Form, Input, Icon, Button, notification } from 'antd';
 
 const Login = ({ location, dispatch, global, form }) => {
 
@@ -16,10 +16,26 @@ const Login = ({ location, dispatch, global, form }) => {
                 console.log('Received values of form: ', values);
                 if (values.username === 'user' && values.password === '123456') {
                     dispatch({ type: 'global/login' })
+                    openNotification('success', '登入成功', '')
+                }
+                else {
+                    openNotification('error', '登入失敗', '請確認使用者名稱或密碼是否錯誤')
                 }
             }
+
         });
     }
+
+    const openNotification = (type, title, description) => {
+        notification[type]({
+            message: title,
+            description: description,
+            onClick: () => {
+                console.log('Notification Clicked!');
+            },
+        });
+    };
+
 
     return (
         <div
