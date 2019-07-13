@@ -43,7 +43,7 @@ export default {
     },
     *check({ payload }, { call, put, select }) {
       const { checkState, authState } = yield select(state => state.global);
-      console.log(checkState)
+      // console.log(checkState)
       if (checkState === false && authState === 'false') {
         throw new Error("get out");
       }

@@ -23,7 +23,7 @@ function BasicLayout({ children, location, global, dispatch }) {
   }
 
   
-  console.log('/'+location.pathname.split("/")[1]);
+  // console.log('/'+location.pathname.split("/")[1]);
 
   if (location.pathname === '/login') {
     return <div>{children}</div>

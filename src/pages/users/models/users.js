@@ -1,3 +1,15 @@
+import router from 'umi/router';
+import { notification } from 'antd';
+
+const openNotification = (type, title, description) => {
+  notification[type]({
+      message: title,
+      description: description,
+      onClick: () => {
+          console.log('Notification Clicked!');
+      },
+  });
+};
 
 export default {
   namespace: 'users',
@@ -16,14 +28,17 @@ export default {
         address: '台南市XXX區',
       },
     ],
-    total: null,
-    page: null,
-    text:'Hellow'
   },
   reducers: {
     save(state, { payload }) {
       return { ...state, ...payload };
     },
+    // listAdd(state, { payload }) {
+    //   return {
+    //     ...state,
+    //     list : [...state.lsit, payload]
+    //   }
+    // }
   },
   effects: {
     // *fetch({ payload: { page = 1 } }, { call, put }) {
@@ -47,11 +62,13 @@ export default {
     //   const page = yield select(state => state.users.page);
     //   yield put({ type: 'fetch', payload: { page } });
     // },
-    // *create({ payload: values }, { call, put, select }) {
-    //   yield call(usersService.create, values);
-    //   const page = yield select(state => state.users.page);
-    //   yield put({ type: 'fetch', payload: { page } });
-    // },
+    *listAdd({ payload }, { call, put, select }) {
+      const { list } = yield select(state => state.users);
+      console.log(payload)
+      yield put({ type: 'save', payload: { list: [...list, payload] } });
+      router.push('/users')
+      openNotification('success', '新增成功', '')
+    },
   },
   subscriptions: {
     setup({ dispatch, history }) {
