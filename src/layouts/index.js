@@ -22,6 +22,9 @@ function BasicLayout({ children, location, global, dispatch }) {
     dispatch({ type: 'global/save', payload: { siderOpen: !global.siderOpen } })
   }
 
+  
+  console.log('/'+location.pathname.split("/")[1]);
+
   if (location.pathname === '/login') {
     return <div>{children}</div>
   }
@@ -37,7 +40,7 @@ function BasicLayout({ children, location, global, dispatch }) {
           >
             <Menu
               mode="inline"
-              selectedKeys={[location.pathname]}
+              selectedKeys={['/'+location.pathname.split("/")[1]]}
               style={{ height: '100%', borderRight: 0 }}
             >
               {siderItems.map((item) =>
