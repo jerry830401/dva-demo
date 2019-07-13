@@ -3,11 +3,11 @@ import { notification } from 'antd';
 
 const openNotification = (type, title, description) => {
   notification[type]({
-      message: title,
-      description: description,
-      onClick: () => {
-          console.log('Notification Clicked!');
-      },
+    message: title,
+    description: description,
+    onClick: () => {
+      console.log('Notification Clicked!');
+    },
   });
 };
 
@@ -28,7 +28,7 @@ export default {
         address: '台南市XXX區',
       },
     ],
-    temp:[],
+    temp: [],
   },
   reducers: {
     save(state, { payload }) {
@@ -82,8 +82,8 @@ export default {
     *listRemove({ payload }, { call, put, select }) {
       const { list } = yield select(state => state.users);
       console.log(payload)
-      yield put({ type: 'save', payload: { list: [...list, payload] } });
-      router.push('/users')
+      list.splice(payload['index'], 1)
+      yield put({ type: 'save', payload: { list: list } });
       openNotification('success', '移除成功', '')
     },
   },

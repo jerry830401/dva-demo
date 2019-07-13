@@ -27,16 +27,26 @@ const Users = ({ location, dispatch, users }) => {
       dataIndex: 'edit',
       key: 'edit',
       render: (t, r, i) =>
-        <Button 
+        <Button
           icon='edit'
-          onClick={()=> gotoEdit(r, i)}
-        />      
+          onClick={() => gotoEdit(r, i)}
+        />
+    },
+    {
+      title: '刪除',
+      dataIndex: 'del',
+      key: 'del',
+      render: (t, r, i) =>
+        <Button
+          icon='delete'
+          onClick={() => dispatch({ type: 'users/listRemove', payload: { index: i } })}
+        />
     },
   ];
 
   const gotoEdit = (r, i) => {
     console.log(r, i)
-    dispatch({type:'users/save', payload:{ temp: [r, i] } })
+    dispatch({ type: 'users/save', payload: { temp: [r, i] } })
     router.push('users/edit')
   }
 
