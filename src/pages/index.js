@@ -1,7 +1,7 @@
 import styles from './index.css';
 
 
-export default function() {
+export default function () {
   return (
     <div className={styles.normal}>
       <div className={styles.welcome} />
@@ -10,6 +10,7 @@ export default function() {
         <li>
           <a href="https://umijs.org/guide/getting-started.html">
             Getting Started
+            123
           </a>
         </li>
       </ul>
