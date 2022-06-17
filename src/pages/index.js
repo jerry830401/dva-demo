@@ -10,9 +10,6 @@ export default function () {
         <li>
           <a href="https://umijs.org/guide/getting-started.html">
             Getting Started
-            123
-            456
-            789
           </a>
         </li>
       </ul>
